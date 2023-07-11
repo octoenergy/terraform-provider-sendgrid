@@ -31,7 +31,7 @@ func resourceSendgridDomainAuthenticationValidation() *schema.Resource { //nolin
 
 		Schema: map[string]*schema.Schema{
 			"domain_authentication_id": {
-				Type:        schema.TypeInt,
+				Type:        schema.TypeString,
 				Description: "Id of the domain authentication to validate.",
 				Required:    true,
 			},
