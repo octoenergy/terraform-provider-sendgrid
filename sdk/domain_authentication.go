@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 )
 
@@ -154,7 +153,7 @@ func (c *Client) ValidateDomainAuthentication(ctx context.Context, id string) Re
 		}
 	}
 
-	respBody, statusCode, err := c.Post(ctx, "POST", "/whitelabel/domains/"+id+"/validate", nil)
+	_, statusCode, err := c.Post(ctx, "POST", "/whitelabel/domains/"+id+"/validate", nil)
 	if err != nil || statusCode != 200 {
 		return RequestError{
 			StatusCode: statusCode,
@@ -162,32 +161,7 @@ func (c *Client) ValidateDomainAuthentication(ctx context.Context, id string) Re
 		}
 	}
 
-	res, err := unmarshall(respBody)
-	if err != nil {
-		return RequestError{
-			StatusCode: http.StatusInternalServerError,
-			Err:        err,
-		}
-	}
-
-	if valid, ok := res["valid"].(bool); ok && !valid {
-		return RequestError{
-			StatusCode: http.StatusInternalServerError,
-			Err:        ErrDomainAuthenticationValidationFailed,
-		}
-	}
-
 	return RequestError{StatusCode: http.StatusOK, Err: nil}
-}
-
-func unmarshall(respBody string) (map[string]interface{}, error) {
-	var j map[string]interface{}
-	if err := json.Unmarshal([]byte(respBody), &j); err != nil {
-		log.Printf("JSON Unmarshalling of the response body: %s, failed with: %s,",
-			respBody, err)
-		return nil, err
-	}
-	return j, nil
 }
 
 // DeleteDomainAuthentication deletes an DomainAuthentication.

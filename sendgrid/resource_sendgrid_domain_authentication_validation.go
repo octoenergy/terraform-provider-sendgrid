@@ -20,7 +20,6 @@ import (
 	sendgrid "github.com/octoenergy/terraform-provider-sendgrid/sdk"
 )
 
-// https://docs.sendgrid.com/api-reference/domain-authentication/validate-a-domain-authentication
 func resourceSendgridDomainAuthenticationValidation() *schema.Resource { //nolint:funlen
 	return &schema.Resource{
 		CreateContext: resourceSendgridDomainAuthenticationValidationCreate,
@@ -94,6 +93,10 @@ func resourceSendgridDomainAuthenticationValidationUpdate(
 	return validateDomain(ctx, d, m)
 }
 
-func resourceSendgridDomainAuthenticationValidationDelete(context.Context, *schema.ResourceData, interface{}) diag.Diagnostics {
+func resourceSendgridDomainAuthenticationValidationDelete(
+	ctx context.Context,
+	d *schema.ResourceData,
+	m interface{},
+) diag.Diagnostics {
 	return nil
 }
