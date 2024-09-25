@@ -2,6 +2,8 @@ module github.com/octoenergy/terraform-provider-sendgrid
 
 go 1.23
 
+toolchain go1.21.3
+
 require (
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/hashicorp/terraform-plugin-docs v0.19.4
