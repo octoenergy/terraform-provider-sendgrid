@@ -87,7 +87,6 @@ func resourceSendgridDomainAuthentication() *schema.Resource { //nolint:funlen
 				Type:        schema.TypeString,
 				Description: "Add a custom DKIM selector. Accepts three letters or numbers.",
 				Optional:    true,
-				ForceNew:    true,
 			},
 			"valid": {
 				Type:        schema.TypeBool,
