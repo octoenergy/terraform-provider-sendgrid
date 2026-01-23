@@ -127,6 +127,11 @@ func resourceSendgridLinkBrandingRead(ctx context.Context, d *schema.ResourceDat
 
 	link, err := c.ReadLinkBranding(ctx, d.Id())
 	if err.Err != nil {
+		if err.StatusCode == 404 {
+			// Resource was deleted outside of Terraform
+			d.SetId("")
+			return nil
+		}
 		return diag.FromErr(err.Err)
 	}
 
